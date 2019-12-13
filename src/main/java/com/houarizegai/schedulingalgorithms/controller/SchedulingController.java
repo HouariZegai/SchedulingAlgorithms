@@ -3,6 +3,7 @@ package com.houarizegai.schedulingalgorithms.controller;
 import com.houarizegai.schedulingalgorithms.engine.*;
 import com.houarizegai.schedulingalgorithms.model.InputTable;
 import com.houarizegai.schedulingalgorithms.model.OutputTable;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
@@ -26,7 +27,10 @@ public class SchedulingController implements Initializable {
     private VBox root;
 
     @FXML
-    private JFXTextField fieldInputTime, fieldInputFileA, fieldInputFileB, fieldInputFileC;
+    private JFXTextField fieldInputTime;
+
+    @FXML
+    private JFXCheckBox checkInputFileA, checkInputFileB, checkInputFileC;
 
     @FXML
     private TableView<InputTable> tableInput;
@@ -100,12 +104,15 @@ public class SchedulingController implements Initializable {
             return;
         }
 
-        inputTableData.add(new InputTable(Double.parseDouble(fieldInputTime.getText()), fieldInputFileA.getText(), fieldInputFileB.getText(), fieldInputFileC.getText()));
+        inputTableData.add(new InputTable(Double.parseDouble(fieldInputTime.getText()),
+                checkInputFileA.isSelected() ? "A" : null,
+                checkInputFileB.isSelected() ? "B" : null,
+                checkInputFileC.isSelected() ? "C" : null));
 
         fieldInputTime.setText(null);
-        fieldInputFileA.setText(null);
-        fieldInputFileB.setText(null);
-        fieldInputFileC.setText(null);
+        checkInputFileA.setSelected(false);
+        checkInputFileB.setSelected(false);
+        checkInputFileC.setSelected(false);
     }
 
     @FXML

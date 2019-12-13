@@ -30,6 +30,14 @@
     -fx-cursor: hand
 }
 
+.check-input {
+    -fx-pref-height: 35px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #444;
+    -fx-selected-color: #2196f3;
+    -fx-cursor: hand
+}
+
 .field-input {
     -fx-pref-width: 50px;
     -fx-pref-height: 30px;
