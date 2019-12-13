@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" spacing="20.0" stylesheets="@../styles/scheduling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.schedulingalgorithms.controllers.SchedulingController">
+<VBox fx:id="root" spacing="20.0" stylesheets="@../style/scheduling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.schedulingalgorithms.controller.SchedulingController">
    <children>
       <Label styleClass="title" text="Scheduling Algorithms" />
       <HBox spacing="20.0" VBox.vgrow="ALWAYS">
@@ -35,12 +35,12 @@
                         </JFXButton>
                      </children>
                   </HBox>
-                  <TableView fx:id="tableInput" prefHeight="400.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tableInput" editable="true" prefHeight="400.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Time" />
-                      <TableColumn prefWidth="75.0" text="File A" />
-                        <TableColumn prefWidth="75.0" text="File B" />
-                        <TableColumn prefWidth="75.0" text="File C" />
+                        <TableColumn fx:id="colInTime" prefWidth="75.0" text="Time" />
+                        <TableColumn fx:id="colInA" prefWidth="75.0" text="File A" />
+                        <TableColumn fx:id="colInB" prefWidth="75.0" text="File B" />
+                        <TableColumn fx:id="colInC" prefWidth="75.0" text="File C" />
                     </columns>
                   </TableView>
                </children>
@@ -78,10 +78,10 @@
             <VBox styleClass="box-header" HBox.hgrow="ALWAYS">
                <children>
                   <Label styleClass="box-title" text="Output" />
-                  <TableView fx:id="tableOutput" prefHeight="400.0" prefWidth="240.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tableOutput" editable="true" prefHeight="400.0" prefWidth="240.0" VBox.vgrow="ALWAYS">
                      <columns>
-                        <TableColumn prefWidth="120.0" text="Time" />
-                        <TableColumn prefWidth="120.0" text="A" />
+                        <TableColumn fx:id="colOutTime" prefWidth="120.0" text="Time" />
+                        <TableColumn fx:id="colOutPacket" prefWidth="120.0" text="Packet" />
                      </columns>
                   </TableView>
                </children>
