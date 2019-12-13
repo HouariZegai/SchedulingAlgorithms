@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" spacing="20.0" stylesheets="@../styles/scheduling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.schedulingalgorithms.controllers.SchedulingController">
+   <children>
+      <Label styleClass="title" text="Scheduling Algorithms" />
+      <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox styleClass="box-header" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="box-title" text="Input" />
+                  <HBox spacing="10.0">
+                     <children>
+                        <JFXTextField fx:id="fieldInputTime" promptText="Time" styleClass="field-input" />
+                        <JFXTextField fx:id="fieldInputFileA" promptText="File A" styleClass="field-input" />
+                        <JFXTextField fx:id="fieldInputFileB" promptText="File B" styleClass="field-input" />
+                        <JFXTextField fx:id="fieldInputFileC" promptText="File C" styleClass="field-input" />
+                        <JFXButton onAction="#onAddToInput" text="Add">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-field" />
+                              <String fx:value="btn-success" />
+                           </styleClass>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="tableInput" prefHeight="400.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Time" />
+                      <TableColumn prefWidth="75.0" text="File A" />
+                        <TableColumn prefWidth="75.0" text="File B" />
+                        <TableColumn prefWidth="75.0" text="File C" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            <VBox styleClass="box-header">
+               <children>
+                  <Label styleClass="box-title" text="Select Algorithm" />
+                  <JFXRadioButton fx:id="radioSpq" selected="true" styleClass="radio" text="SPQ">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tglGroupScheduleAlgo" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="radioWrr" styleClass="radio" text="WRR" toggleGroup="$tglGroupScheduleAlgo" />
+                  <VBox fx:id="boxWrrWeightContainer" spacing="15.0" disable="true">
+                     <children>
+                        <JFXTextField fx:id="fieldAWeight" promptText="A Weight" styleClass="field-weight" />
+                        <JFXTextField fx:id="fieldBWeight" promptText="B Weight" styleClass="field-weight" />
+                        <JFXTextField fx:id="fieldCWeight" promptText="C Weight" styleClass="field-weight" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <JFXButton onAction="#onStart" text="Start">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <VBox styleClass="box-header" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="box-title" text="Output" />
+                  <TableView fx:id="tableOutput" prefHeight="400.0" prefWidth="240.0" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn prefWidth="120.0" text="Time" />
+                        <TableColumn prefWidth="120.0" text="A" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
