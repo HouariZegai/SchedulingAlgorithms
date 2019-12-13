@@ -98,6 +98,16 @@ public class SchedulingController implements Initializable {
     }
 
     @FXML
+    private void onClearInput() {
+        fieldInputTime.setText(null);
+        checkInputFileA.setSelected(false);
+        checkInputFileB.setSelected(false);
+        checkInputFileC.setSelected(false);
+
+        inputTableData.clear();
+    }
+
+    @FXML
     public void onAddToInput() {
         if(fieldInputTime.getText() == null || fieldInputTime.getText().isEmpty()) {
             toastErrorMsg.show("Please type the input time before adding new input line!", 1500);

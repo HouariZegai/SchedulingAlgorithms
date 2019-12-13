@@ -78,6 +78,10 @@
     -fx-background-color: #02C852;
 }
 
+.btn-warning {
+    -fx-background-color: #FF8800;
+}
+
 /* Start JFXSnackbar (toast) */
 
 .jfx-snackbar-content {

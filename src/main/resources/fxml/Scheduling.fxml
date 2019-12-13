@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="root" spacing="20.0" stylesheets="@../style/scheduling.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.houarizegai.schedulingalgorithms.controller.SchedulingController">
@@ -20,7 +21,18 @@
          <children>
             <VBox styleClass="box-header" HBox.hgrow="ALWAYS">
                <children>
-                  <Label styleClass="box-title" text="Input" />
+                  <StackPane>
+                     <children>
+                        <Label styleClass="box-title" text="Input" StackPane.alignment="CENTER_LEFT" />
+                        <JFXButton onAction="#onClearInput" text="Clear" StackPane.alignment="CENTER_RIGHT">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-field" />
+                              <String fx:value="btn-warning" />
+                           </styleClass>
+                        </JFXButton>
+                     </children>
+                  </StackPane>
                   <HBox spacing="10.0">
                      <children>
                         <JFXTextField fx:id="fieldInputTime" promptText="Time" styleClass="field-input" />
