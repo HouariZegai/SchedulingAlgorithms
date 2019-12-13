@@ -1,6 +1,6 @@
 package com.houarizegai.schedulingalgorithms.controller;
 
-import com.houarizegai.schedulingalgorithms.engine.SPQEngine;
+import com.houarizegai.schedulingalgorithms.engine.*;
 import com.houarizegai.schedulingalgorithms.model.InputTable;
 import com.houarizegai.schedulingalgorithms.model.OutputTable;
 import com.jfoenix.controls.JFXRadioButton;
@@ -112,23 +112,48 @@ public class SchedulingController implements Initializable {
     public void onStart() {
         if(radioSpq.isSelected()) {
             if(!inputTableData.isEmpty()) {
-                List<String[]> outputData = new ArrayList<>();
-                for(InputTable row : inputTableData) {
-                    outputData.add(new String[]{String.valueOf(row.getTime()), row.getAFile(), row.getBFile(), row.getCFile()});
-                }
+                List<String[]> outputData = prepareDataToSheduleAlgo(inputTableData);
                 SPQEngine spqEngine = new SPQEngine(outputData);
-
-                List<String[]> result = spqEngine.getResult();
-                outputTableData.clear();
-                for(String[] row : result) {
-                    outputTableData.add(new OutputTable(Double.parseDouble(row[1]), row[0]));
-                }
-
+                fillToOutputTable(spqEngine.getResult());
             } else
                 toastErrorMsg.show("Please insert at least one element!", 1500);
 
         } else if(radioWrr.isSelected()) {
+            if(fieldAWeight.getText() == null || fieldAWeight.getText().isEmpty()) {
+                toastErrorMsg.show("Please type Weight of A", 1500);
+                return;
+            }
+            if(fieldBWeight.getText() == null || fieldBWeight.getText().isEmpty()) {
+                toastErrorMsg.show("Please type Weight of B", 1500);
+                return;
+            }
+            if(fieldCWeight.getText() == null || fieldCWeight.getText().isEmpty()) {
+                toastErrorMsg.show("Please type Weight of C", 1500);
+                return;
+            }
 
+            int aWeight = Integer.parseInt(fieldAWeight.getText());
+            int bWeight = Integer.parseInt(fieldBWeight.getText());
+            int cWeight = Integer.parseInt(fieldCWeight.getText());
+
+            List<String[]> outputData = prepareDataToSheduleAlgo(inputTableData);
+            WRREngine wrrEngine = new WRREngine(outputData, aWeight, bWeight, cWeight);
+            fillToOutputTable(wrrEngine.getResult());
+        }
+    }
+
+    private List<String[]> prepareDataToSheduleAlgo(List<InputTable> inputData) {
+        List<String[]> outputData = new ArrayList<>();
+        for(InputTable row : inputData) {
+            outputData.add(new String[]{String.valueOf(row.getTime()), row.getAFile(), row.getBFile(), row.getCFile()});
+        }
+        return outputData;
+    }
+
+    private void fillToOutputTable(List<String[]> result) {
+        outputTableData.clear();
+        for(String[] row : result) {
+            outputTableData.add(new OutputTable(Double.parseDouble(row[1]), row[0]));
         }
     }
 }
