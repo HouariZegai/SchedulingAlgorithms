@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SPQEngine {
     private int spqIndex = 0, spqSize;
-    private double time = 1;
+    private double time = 0;
 
     private List<String[]> data;
     private LinkedList<String> aList, bList, cList;

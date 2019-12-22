@@ -10,8 +10,8 @@ public class WRREngine {
     private List<String[]> result;
     private int weightA, weightB, weightC;
 
-    private int spqIndex = 0, spqSize;
-    private double time = 1;
+    private int wrrIndex = 0, wrrSize;
+    private double time = 0;
 
     public WRREngine(List<String[]> data, int weightA, int weightB, int weightC) {
         this.data = data;
@@ -25,49 +25,52 @@ public class WRREngine {
 
         result = new ArrayList<>();
 
-        spqSize = data.size();
+        wrrSize = data.size();
     }
 
     public List<String[]> getResult() {
-        int counter = 0;
-        int iRead = 0;
+        int counter = 0; // round roben coumter
+        int iRead = -1;
+        int weight; // helper variable
 
-        while(!aList.isEmpty() || !bList.isEmpty() || !cList.isEmpty() || spqIndex < spqSize) {
+        while(!aList.isEmpty() || !bList.isEmpty() || !cList.isEmpty() || wrrIndex < wrrSize) {
             updateAttendLists();
-            //System.out.println("iRead:" + iRead + ", aList:" + aList.size() + ", bList:" + bList.size() + ", cList:" + cList.size());
 
             switch (iRead) {
-                case 1:
-                    if(weightA > 1 && aList.size() < weightA) {
-                       if(!aList.isEmpty())
-                           counter = 1;
+                case 0:
+                    int i = 0;
+                    if(weightA > 1 && !aList.isEmpty())
+                        counter = 1;
 
-                       while(!aList.isEmpty()) {
-                           result.add(new String[]{aList.poll(), String.valueOf(time += 0.5)});
-                           updateAttendLists();
-                       }
+                    weight = weightA;
+                    while(!aList.isEmpty() && weight > 1) {
+                        result.add(new String[]{aList.poll(), String.valueOf(time += 0.5)});
+                        updateAttendLists();
+                        weight--;
+                    }
+                    break;
+                case 1:
+                    if(weightB > 1 && !bList.isEmpty()) {
+                        counter = 2;
+                    }
+
+                    weight = weightB;
+                    while(!bList.isEmpty() && weight > 1) {
+                        result.add(new String[]{bList.poll(), String.valueOf(time += 0.5)});
+                        updateAttendLists();
+                        weight--;
                     }
                     break;
                 case 2:
-                    if(weightB > 1 && bList.size() < weightB) {
-                        if(!bList.isEmpty())
-                            counter = 2;
-
-                       while(!bList.isEmpty()) {
-                           result.add(new String[]{bList.poll(), String.valueOf(time += 0.5)});
-                           updateAttendLists();
-                       }
+                    if(weightC > 1 && !cList.isEmpty()) {
+                        counter = 0;
                     }
-                    break;
-                case 3:
-                    if(weightC > 1 && cList.size() < weightC) {
-                        if(!cList.isEmpty())
-                            counter = 0;
 
-                        while(!cList.isEmpty()) {
-                           result.add(new String[]{cList.poll(), String.valueOf(time += 0.5)});
-                           updateAttendLists();
-                        }
+                    weight = weightC;
+                    while(!cList.isEmpty() && weight > 1) {
+                        result.add(new String[]{cList.poll(), String.valueOf(time += 0.5)});
+                        updateAttendLists();
+                        weight--;
                     }
                     break;
             }
@@ -76,21 +79,21 @@ public class WRREngine {
                 case 0:
                     if(!aList.isEmpty()) {
                         result.add(new String[]{aList.poll(), String.valueOf(time + 0.5)});
-                        iRead = 1;
+                        iRead = 0;
                         time += 0.5;
                     }
                     break;
                 case 1:
                     if(!bList.isEmpty()) {
                         result.add(new String[]{bList.poll(), String.valueOf(time + 0.5)});
-                        iRead = 2;
+                        iRead = 1;
                         time += 0.5;
                     }
                     break;
                 case 2:
                     if(!cList.isEmpty()) {
                         result.add(new String[]{cList.poll(), String.valueOf(time + 0.5)});
-                        iRead = 3;
+                        iRead = 2;
                         time += 0.5;
                     }
                     break;
@@ -103,19 +106,19 @@ public class WRREngine {
     }
 
     private void updateAttendLists() {
-        if(spqIndex == spqSize)
+        if(wrrIndex == wrrSize)
             return;
 
-         String[] currentPacket = data.get(spqIndex);
-         if(Double.parseDouble(currentPacket[0]) == time) {
-             if(currentPacket[1] != null)
-                 aList.add("A");
-             if(currentPacket[2] != null)
-                 bList.add("B");
-             if(currentPacket[3] != null)
-                 cList.add("C");
-             spqIndex++;
-         }
+        String[] currentPacket = data.get(wrrIndex);
+        if(Double.parseDouble(currentPacket[0]) == time) {
+            if(currentPacket[1] != null)
+                aList.add("A");
+            if(currentPacket[2] != null)
+                bList.add("B");
+            if(currentPacket[3] != null)
+                cList.add("C");
+            wrrIndex++;
+        }
 
     }
 }
