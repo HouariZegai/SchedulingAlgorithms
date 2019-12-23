@@ -9,11 +9,12 @@
 </p>
 
 ## Introduction
-Strict Priority Queueing (SPQ) and Weighted Round Robin (WRR) are two common scheduling techniques to achieve Quality-of-Service (QoS) while using shared resources, i tried implemented this techniques of scheduling, because i did not find the implementation in Java language.
+Scheduling algorithms are techniques to achieve Quality-of-Service (QoS) while using shared resources, i tried implement some techniques of scheduling in Java (i did not find implementation in this language).
 
 ## Algorithms
 - [x] SPQ (Strict Priority Queueing)
 - [x] WRR (Weighted Round Robin)
+- [x] DWRR (Deficit Weighted Round Robin)
 
 ## Screenshots
 Main App          |

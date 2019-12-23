@@ -1,6 +1,7 @@
 package com.houarizegai.schedulingalgorithms.engine.dwrr;
 
 import com.houarizegai.schedulingalgorithms.engine.dwrr.model.DWRRInputModel;
+import com.houarizegai.schedulingalgorithms.engine.dwrr.model.DWRROutputModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,9 @@ public class DWRRDemo {
                 new DWRRInputModel(5, "500", "500", "300"));
 
         DWRREngine dwrrEngine = new DWRREngine(data, 500, 500, 500);
-        System.out.println(dwrrEngine.getResult());
+        for(DWRROutputModel row : dwrrEngine.getResult())
+            System.out.printf("%.2f | %s | %.0f\n", row.getTime(), row.getPacketName(), row.getPacketSize());
+
+        //System.out.println(dwrrEngine.getResult());
     }
 }

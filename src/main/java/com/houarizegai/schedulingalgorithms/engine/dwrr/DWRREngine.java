@@ -15,23 +15,22 @@ public class DWRREngine {
     
     private List<DWRROutputModel> result;
     int roundRobenCounter = 0;
-    private double time = 1d;
+    private double time;
 
     public DWRREngine(List<DWRRInputModel> data, int aDCSize, int bDCSize, int cDCSize) {
         this.data = new LinkedList<>(data);
-
         aFile = new DWRRModel("A", aDCSize);
         bFile = new DWRRModel("B", bDCSize);
         cFile = new DWRRModel("C", cDCSize);
 
         result = new ArrayList<>();
+
+        this.time = this.data.getFirst().getTime();
     }
 
     public List<DWRROutputModel> getResult() {
         while(!data.isEmpty() || !aFile.getInput().isEmpty() || !bFile.getInput().isEmpty() || !cFile.getInput().isEmpty()) {
             updateAttendLists();
-//            System.out.println(result); // for testing only
-//            System.out.println("Round roben: " + roundRobenCounter + " | " + aFile);
 
             switch (roundRobenCounter) {
                 case 0:
